@@ -130,7 +130,7 @@ nav {
         white-space: nowrap;
         display: inline-block;
         margin: 0 auto;
-        animation: typing 3.5s steps(20, end) forwards, blink-caret .75s step-end infinite;
+        animation: typing 15s steps(20, end) infinite, blink-caret .75s step-end infinite;
     }
 
     p {
@@ -144,11 +144,11 @@ nav {
 
 /* The typing effect */
 @keyframes typing {
-    from {
+    from, to {
         max-width: 0
     }
 
-    to {
+    50% {
         max-width: 100%
     }
 }

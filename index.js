@@ -32,7 +32,7 @@ function showSlides(n) {
 
     // Remove all active, next, and prev classes
     for (let i = 0; i < totalSlides; i++) {
-        slides[i].classList.remove('active', 'next', 'prev');
+        slides[i].classList.remove('active');
     }
 
     // Add appropriate classes for the current slide
