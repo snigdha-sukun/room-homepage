@@ -75,11 +75,20 @@ nav {
     .hero__image {
         transform: translateX(-100%);
         @include u.transition(opacity, 1s, ease-out);
+
+        @include u.no-animation {
+            transition: none;
+        }
     }
 
     .hero__content {
         transform: translateX(100%);
         @include u.transition(opacity, 1s, ease-out);
+
+        @include u.no-animation {
+            transition: none;
+        }
+
         @include u.padding_all(6rem);
 
         p {
@@ -108,13 +117,25 @@ nav {
     @include u.transition(opacity, 1s, ease-in);
     pointer-events: auto;
 
+    @include u.no-animation {
+        transition: none;
+    }
+
     .hero__content,
     .hero__image {
         transform: translateX(0);
         @include u.transition(all, 1s, ease-in);
 
+        @include u.no-animation {
+            transition: none;
+        }
+
         @include c.mobile {
             @include u.transition(opacity, 1s, ease-in);
+
+            @include u.no-animation {
+                transition: none;
+            }
         }
     }
 }
@@ -131,6 +152,10 @@ nav {
         display: inline-block;
         margin: 0 auto;
         animation: typing 15s steps(20, end) infinite, blink-caret .75s step-end infinite;
+
+        @include u.no-animation {
+            animation: none;
+        }
     }
 
     p {
@@ -144,7 +169,9 @@ nav {
 
 /* The typing effect */
 @keyframes typing {
-    from, to {
+
+    from,
+    to {
         max-width: 0
     }
 

@@ -237,10 +237,20 @@ nav.active {
   transform: translateX(-100%);
   transition: opacity 1s ease-out;
 }
+@media (prefers-reduced-motion: reduce) {
+  .hero__slide .hero__image {
+    transition: none;
+  }
+}
 .hero__slide .hero__content {
   transform: translateX(100%);
   transition: opacity 1s ease-out;
   padding: 6rem;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero__slide .hero__content {
+    transition: none;
+  }
 }
 .hero__slide .hero__content p {
   padding-top: 1rem;
@@ -267,15 +277,32 @@ nav.active {
   transition: opacity 1s ease-in;
   pointer-events: auto;
 }
+@media (prefers-reduced-motion: reduce) {
+  .active {
+    transition: none;
+  }
+}
 .active .hero__content,
 .active .hero__image {
   transform: translateX(0);
   transition: all 1s ease-in;
 }
+@media (prefers-reduced-motion: reduce) {
+  .active .hero__content,
+  .active .hero__image {
+    transition: none;
+  }
+}
 @media (max-width: 768px) {
   .active .hero__content,
   .active .hero__image {
     transition: opacity 1s ease-in;
+  }
+}
+@media (max-width: 768px) and (prefers-reduced-motion: reduce) {
+  .active .hero__content,
+  .active .hero__image {
+    transition: none;
   }
 }
 
@@ -295,6 +322,11 @@ nav.active {
   display: inline-block;
   margin: 0 auto;
   animation: typing 15s steps(20, end) infinite, blink-caret 0.75s step-end infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .footer__content h2 {
+    animation: none;
+  }
 }
 .footer__content p {
   padding-top: 1rem;
