@@ -1,0 +1,67 @@
+@use 'variables' as v;
+@use 'compositions' as c;
+
+@mixin padding_all($padding) {
+    padding: $padding;
+}
+
+@mixin padding_y($padding) {
+    padding-top: $padding;
+    padding-bottom: $padding;
+}
+
+@mixin padding_right($padding) {
+    padding-right: $padding;
+}
+
+@mixin position_absolute($z-index: 10) {
+    position: absolute;
+    z-index: $z-index;
+}
+
+@mixin transition($property, $duration, $timing) {
+    transition: $property $duration $timing;
+}
+
+@mixin text-style($text-transform, $letter-spacing) {
+    text-transform: $text-transform;
+    letter-spacing: $letter-spacing;
+}
+
+@mixin nav-hover-effect {
+    display: inline-block;
+    position: relative;
+    text-align: center;
+
+    &::after {
+        display: block;
+        width: 2rem;
+        content: '';
+        border-bottom: solid 3px v.$white;
+        transform: scaleX(0);
+        margin: auto;
+        @include transition(transform, 250ms, ease-in-out);
+    }
+
+    &:hover::after {
+        transform: scaleX(1);
+    }
+}
+
+@mixin typography($font-size, $line-height, $mobile-font-size) {
+    font-size: $font-size;
+    line-height: $line-height;
+
+    @include c.mobile {
+        font-size: $mobile-font-size;
+    }
+}
+
+@mixin section-styles($height: auto, $mobile-height: auto) {
+    width: 100%;
+    height: $height;
+
+    @include c.mobile {
+        height: $mobile-height;
+    }
+}

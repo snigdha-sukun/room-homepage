@@ -1,0 +1,20 @@
+@mixin display-flex($justify: space-between, $direction: row, $align-items: center) {
+    display: flex;
+    justify-content: $justify;
+    align-items: $align-items;
+    flex-direction: $direction;
+}
+
+@mixin mobile {
+    @media (max-width: 768px) {
+        @content;
+    }
+}
+
+@mixin responsive-image($display-desktop, $display-mobile) {
+    display: $display-desktop;
+
+    @include mobile {
+        display: $display-mobile;
+    }
+}

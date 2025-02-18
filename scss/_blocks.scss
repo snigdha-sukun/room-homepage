@@ -1,0 +1,211 @@
+@use 'variables' as v;
+@use 'compositions' as c;
+@use 'utilities' as u;
+
+header {
+    @include c.display-flex($justify: flex-start);
+    @include u.padding_all(3rem);
+    @include u.position_absolute;
+    color: v.$white;
+    font-weight: v.$font-weight-600;
+    text-transform: lowercase;
+
+    nav {
+        @include c.display-flex;
+
+        ul {
+            @include c.display-flex;
+
+            li {
+                list-style: none;
+                @include u.padding_all(1rem);
+                cursor: pointer;
+                @include u.nav-hover-effect;
+            }
+        }
+
+        @include c.mobile {
+            position: fixed;
+            width: 100%;
+            left: 0;
+            top: 0;
+            z-index: 10;
+            background-color: v.$white;
+            color: v.$black;
+            padding-top: 60px;
+            @include u.padding_all(1rem);
+            transform: translateY(-100%);
+            opacity: 0;
+            visibility: hidden;
+            @include u.transition(all, 0.5s, ease-in-out);
+        }
+
+        &.active {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+            position: fixed;
+        }
+    }
+
+    @include c.mobile {
+        @include u.padding_all(2rem);
+    }
+}
+
+.desktop_img {
+    @include c.responsive-image(block, none);
+}
+
+.mobile_img {
+    @include c.responsive-image(none, block);
+}
+
+.header__logo {
+    @include u.padding_right(2rem);
+}
+
+.hero__content {
+    @include u.padding_all(6rem);
+
+    p {
+        @include u.padding_y(1rem);
+    }
+
+    @include c.mobile {
+        @include u.padding_all(2.5rem);
+    }
+}
+
+.btn__shop_now {
+    @include u.text-style(uppercase, 0.8rem);
+    color: v.$black;
+    @include u.transition(color, 0.3s, ease);
+}
+
+.btn__shop_now:hover {
+    color: v.$dark-gray;
+}
+
+.section__nav_btn {
+    background-color: v.$black;
+    @include u.padding_all(1rem);
+    @include u.transition(background-color, 0.3s, ease);
+}
+
+.section__nav_btn:hover {
+    background-color: v.$very-dark-gray;
+}
+
+.section__nav {
+    @include c.display-flex($justify: flex-end);
+    @include u.padding_all(3rem);
+    @include u.position_absolute;
+    width: 100%;
+    top: 78.8%;
+    right: 38%;
+
+    @include c.mobile {
+        top: 33.5%;
+        right: -10%;
+    }
+}
+
+.hero__slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+
+    .hero__image {
+        transform: translateX(-100%);
+        @include u.transition(opacity, 1s, ease-out);
+    }
+
+    .hero__content {
+        transform: translateX(100%);
+        @include u.transition(opacity, 1s, ease-out);
+    }
+}
+
+.active {
+    opacity: 1;
+    position: relative;
+    @include u.transition(opacity, 1s, ease-in);
+
+    .hero__content,
+    .hero__image {
+        transform: translateX(0);
+        @include u.transition(all, 1s, ease-in);
+
+        @include c.mobile {
+            @include u.transition(opacity, 1s, ease-in);
+        }
+    }
+}
+
+.footer__content {
+    @include u.padding_all(3rem);
+    @include c.display-flex($justify: center, $direction: column);
+
+    h2 {
+        @include u.text-style(uppercase, 0.5rem);
+        overflow: hidden;
+        border-right: .15em solid v.$very-dark-gray;
+        white-space: nowrap;
+        display: inline-block;
+        margin: 0 auto;
+        animation: typing 3.5s steps(20, end) forwards, blink-caret .75s step-end infinite;
+    }
+
+    p {
+        @include u.padding_y(1rem);
+    }
+
+    @include c.mobile {
+        @include u.padding_all(1rem);
+    }
+}
+
+/* The typing effect */
+@keyframes typing {
+    from {
+        max-width: 0
+    }
+
+    to {
+        max-width: 100%
+    }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+
+    from,
+    to {
+        border-color: transparent
+    }
+
+    50% {
+        border-color: v.$very-dark-gray;
+    }
+}
+
+.mobile_menu {
+    display: none;
+    padding-right: 5rem;
+
+    @include c.mobile {
+        display: block;
+    }
+}
+
+.close_menu {
+    display: none;
+
+    @include c.mobile {
+        display: block;
+    }
+}

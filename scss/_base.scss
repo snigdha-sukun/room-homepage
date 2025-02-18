@@ -1,0 +1,67 @@
+@use 'variables' as v;
+@use 'utilities' as u;
+@use 'compositions' as c;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: v.$font-family;
+    line-height: 1.5;
+}
+
+p {
+    font-size: v.$font-size;
+    font-weight: v.$font-weight-500;
+    color: v.$dark-gray;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: v.$font-weight-700;
+}
+
+h1 {
+    @include u.typography(3.5rem, 3rem, 2rem);
+}
+
+h2 {
+    @include u.typography(1.5rem, 2.5rem, 1.2rem);
+}
+
+button {
+    all: unset;
+    cursor: pointer;
+}
+
+main {
+    @include u.section-styles(77vh, 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+footer {
+    @include u.section-styles;
+    @include c.display-flex;
+    position: relative;
+
+    @include c.mobile {
+        @include c.display-flex($direction: column);
+    }
+}
+
+section {
+    @include c.display-flex;
+    width: 100%;
+
+    @include c.mobile {
+        @include c.display-flex($direction: column);
+    }
+}
