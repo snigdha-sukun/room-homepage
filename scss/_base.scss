@@ -41,16 +41,42 @@ button {
     cursor: pointer;
 }
 
+header {
+    @include c.display-flex($justify: flex-start);
+    @include u.padding_all(3rem);
+    @include u.position_absolute;
+    color: v.$white;
+    font-weight: v.$font-weight-600;
+    text-transform: lowercase;
+
+    nav {
+        @include c.display-flex;
+
+        ul {
+            @include c.display-flex;
+
+            li {
+                list-style: none;
+                @include u.padding_all(1rem);
+                cursor: pointer;
+                @include u.nav-hover-effect;
+            }
+        }
+    }
+
+    @include c.mobile {
+        @include u.padding_all(2rem);
+    }
+}
+
 main {
     @include u.section-styles(77vh, 100%);
-    position: relative;
     overflow: hidden;
 }
 
 footer {
     @include u.section-styles;
     @include c.display-flex;
-    position: relative;
 
     @include c.mobile {
         @include c.display-flex($direction: column);

@@ -2,54 +2,28 @@
 @use 'compositions' as c;
 @use 'utilities' as u;
 
-header {
-    @include c.display-flex($justify: flex-start);
-    @include u.padding_all(3rem);
-    @include u.position_absolute;
-    color: v.$white;
-    font-weight: v.$font-weight-600;
-    text-transform: lowercase;
-
-    nav {
-        @include c.display-flex;
-
-        ul {
-            @include c.display-flex;
-
-            li {
-                list-style: none;
-                @include u.padding_all(1rem);
-                cursor: pointer;
-                @include u.nav-hover-effect;
-            }
-        }
-
-        @include c.mobile {
-            position: fixed;
-            width: 100%;
-            left: 0;
-            top: 0;
-            z-index: 10;
-            background-color: v.$white;
-            color: v.$black;
-            padding-top: 60px;
-            @include u.padding_all(1rem);
-            transform: translateY(-100%);
-            opacity: 0;
-            visibility: hidden;
-            @include u.transition(all, 0.5s, ease-in-out);
-        }
-
-        &.active {
-            transform: translateY(0);
-            opacity: 1;
-            visibility: visible;
-            position: fixed;
-        }
+nav {
+    @include c.mobile {
+        position: fixed;
+        width: 100%;
+        left: 0;
+        top: 0;
+        z-index: 10;
+        background-color: v.$white;
+        color: v.$black;
+        padding-top: 60px;
+        @include u.padding_all(1rem);
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        @include u.transition(all, 0.5s, ease-in-out);
     }
 
-    @include c.mobile {
-        @include u.padding_all(2rem);
+    &.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+        position: fixed;
     }
 }
 
@@ -65,38 +39,6 @@ header {
     @include u.padding_right(2rem);
 }
 
-.hero__content {
-    @include u.padding_all(6rem);
-
-    p {
-        @include u.padding_y(1rem);
-    }
-
-    @include c.mobile {
-        @include u.padding_all(2.5rem);
-    }
-}
-
-.btn__shop_now {
-    @include u.text-style(uppercase, 0.8rem);
-    color: v.$black;
-    @include u.transition(color, 0.3s, ease);
-}
-
-.btn__shop_now:hover {
-    color: v.$dark-gray;
-}
-
-.section__nav_btn {
-    background-color: v.$black;
-    @include u.padding_all(1rem);
-    @include u.transition(background-color, 0.3s, ease);
-}
-
-.section__nav_btn:hover {
-    background-color: v.$very-dark-gray;
-}
-
 .section__nav {
     @include c.display-flex($justify: flex-end);
     @include u.padding_all(3rem);
@@ -109,6 +51,16 @@ header {
         top: 33.5%;
         right: -10%;
     }
+
+    button {
+        background-color: v.$black;
+        @include u.padding_all(1rem);
+        @include u.transition(background-color, 0.3s, ease);
+
+        &:hover {
+            background-color: v.$very-dark-gray;
+        }
+    }
 }
 
 .hero__slide {
@@ -118,6 +70,7 @@ header {
     width: 100%;
     height: 100%;
     opacity: 0;
+    pointer-events: none;
 
     .hero__image {
         transform: translateX(-100%);
@@ -127,6 +80,25 @@ header {
     .hero__content {
         transform: translateX(100%);
         @include u.transition(opacity, 1s, ease-out);
+        @include u.padding_all(6rem);
+
+        p {
+            @include u.padding_y(1rem);
+        }
+
+        button {
+            @include u.text-style(uppercase, 0.8rem);
+            color: v.$black;
+            @include u.transition(color, 0.3s, ease);
+
+            &:hover {
+                color: v.$dark-gray;
+            }
+        }
+
+        @include c.mobile {
+            @include u.padding_all(2.5rem);
+        }
     }
 }
 
@@ -134,6 +106,7 @@ header {
     opacity: 1;
     position: relative;
     @include u.transition(opacity, 1s, ease-in);
+    pointer-events: auto;
 
     .hero__content,
     .hero__image {

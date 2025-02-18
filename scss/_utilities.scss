@@ -59,6 +59,7 @@
 
 @mixin section-styles($height: auto, $mobile-height: auto) {
     width: 100%;
+    position: relative;
     height: $height;
 
     @include c.mobile {
