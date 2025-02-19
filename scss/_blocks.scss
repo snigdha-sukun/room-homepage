@@ -80,10 +80,11 @@ nav {
         button {
             @include u.text-style(uppercase, 0.8rem);
             color: v.$black;
-            @include u.transition(color, 0.3s, ease);
+            @include u.transition(transform, 0.3s, ease);
 
             &:hover {
                 color: v.$dark-gray;
+                transform: translateX(0.8rem);
             }
         }
 

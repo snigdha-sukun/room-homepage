@@ -260,10 +260,11 @@ nav.active {
   text-transform: uppercase;
   letter-spacing: 0.8rem;
   color: hsl(0, 0%, 0%);
-  transition: color 0.3s ease;
+  transition: transform 0.3s ease;
 }
 .hero__slide .hero__content button:hover {
   color: hsl(0, 0%, 63%);
+  transform: translateX(0.8rem);
 }
 @media (max-width: 768px) {
   .hero__slide .hero__content {
