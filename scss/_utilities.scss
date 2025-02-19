@@ -10,10 +10,6 @@
     padding-bottom: $padding;
 }
 
-@mixin padding_right($padding) {
-    padding-right: $padding;
-}
-
 @mixin position_absolute($z-index: 10) {
     position: absolute;
     z-index: $z-index;
@@ -21,6 +17,11 @@
 
 @mixin transition($property, $duration, $timing) {
     transition: $property $duration $timing;
+}
+
+@mixin top_right($top, $right) {
+    top: $top;
+    right: $right;
 }
 
 @mixin text-style($text-transform, $letter-spacing) {
@@ -70,5 +71,27 @@
 @mixin no-animation {
     @media (prefers-reduced-motion: reduce) {
         @content;
+    }
+}
+
+@mixin position_fixed($opacity: 0, $visibility: hidden) {
+    position: fixed;
+    opacity: $opacity;
+    visibility: $visibility;
+}
+
+@mixin mobile-nav {
+    @include c.mobile {
+        width: 100%;
+        left: 0;
+        top: 0;
+        z-index: 10;
+        background-color: v.$white;
+        color: v.$black;
+        padding-top: 60px;
+        @include padding_all(1rem);
+        transform: translateY(-100%);
+        @include position_fixed($opacity: 0, $visibility: hidden);
+        @include transition(all, 0.5s, ease-in-out);
     }
 }

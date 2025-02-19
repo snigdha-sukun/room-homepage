@@ -14,9 +14,6 @@ This is a solution to the [Room homepage challenge on Frontend Mentor](https://w
   - [Continued development](#continued-development)
   - [Useful resources](#useful-resources)
 - [Author](#author)
-- [Acknowledgments](#acknowledgments)
-
-**Note: Delete this note and update the table of contents based on what sections you keep.**
 
 ## Overview
 
@@ -30,85 +27,244 @@ Users should be able to:
 
 ### Screenshot
 
-![](./screenshot.jpg)
-
-Add a screenshot of your solution. The easiest way to do this is to use Firefox to view your project, right-click the page and select "Take a Screenshot". You can choose either a full-height screenshot or a cropped one based on how long the page is. If it's very long, it might be best to crop it.
-
-Alternatively, you can use a tool like [FireShot](https://getfireshot.com/) to take the screenshot. FireShot has a free option, so you don't need to purchase it.
-
-Then crop/optimize/edit your image however you like, add it to your project, and update the file path in the image above.
-
-**Note: Delete this note and the paragraphs above when you add your screenshot. If you prefer not to add a screenshot, feel free to remove this entire section.**
+![Screenshot of the Room homepage solution](./screenshot.gif)
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [Github](https://github.com/snigdha-sukun/room-homepage)
+- Live Site URL: [Vercel](https://room-homepage-omega-two.vercel.app/)
 
 ## My process
 
 ### Built with
 
 - Semantic HTML5 markup
-- CSS custom properties
+- SCSS
 - Flexbox
-- CSS Grid
-- Mobile-first workflow
-- [React](https://reactjs.org/) - JS library
-- [Next.js](https://nextjs.org/) - React framework
-- [Styled Components](https://styled-components.com/) - For styles
-
-**Note: These are just examples. Delete this note and replace the list above with your own choices**
+- Animation
 
 ### What I learned
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
+I learned how to create underline hover effect for nav items:
 
-To see how you can add code snippets, see below:
+```scss
+@mixin nav-hover-effect {
+    display: inline-block;
+    position: relative;
+    text-align: center;
 
-```html
-<h1>Some HTML code I'm proud of</h1>
-```
+    &::after {
+        display: block;
+        width: 2rem;
+        content: '';
+        border-bottom: solid 3px v.$white;
+        transform: scaleX(0);
+        margin: auto;
+        @include transition(transform, 250ms, ease-in-out);
+    }
 
-```css
-.proud-of-this-css {
-  color: papayawhip;
+    &:hover::after {
+        transform: scaleX(1);
+    }
 }
 ```
 
-```js
-const proudOfThisFunc = () => {
-  console.log('🎉')
+I learned how to create a mobile view animated navbar:
+
+```scss
+@mixin position_fixed($opacity: 0, $visibility: hidden) {
+    position: fixed;
+    opacity: $opacity;
+    visibility: $visibility;
+}
+
+@mixin mobile-nav {
+    @include c.mobile {
+        width: 100%;
+        left: 0;
+        top: 0;
+        z-index: 10;
+        background-color: v.$white;
+        color: v.$black;
+        padding-top: 60px;
+        @include padding_all(1rem);
+        transform: translateY(-100%);
+        @include position_fixed($opacity: 0, $visibility: hidden);
+        @include transition(all, 0.5s, ease-in-out);
+    }
+}
+
+nav {
+    @include u.mobile-nav;
+
+    &.active {
+        @include u.position_fixed(1, visible);
+        transform: translateY(0);
+    }
 }
 ```
 
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
+I learned about `prefers-reduced-motion`:
 
-**Note: Delete this note and the content within this section and replace with your own learnings.**
+```scss
+@mixin no-animation {
+    @media (prefers-reduced-motion: reduce) {
+        @content;
+    }
+}
+```
+
+I learned how to add sliding transitions to a block and also about `pointer-events`:
+
+```scss
+.hero__slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    pointer-events: none;
+
+    .hero__image {
+        transform: translateX(-100%);
+        @include u.transition(opacity, 1s, ease-out);
+
+        @include u.no-animation {
+            transition: none;
+        }
+    }
+
+    .hero__content {
+        transform: translateX(100%);
+        @include u.transition(opacity, 1s, ease-out);
+
+        @include u.no-animation {
+            transition: none;
+        }
+
+        @include u.padding_all(6rem);
+
+        p {
+            @include u.padding_y(1rem);
+        }
+
+        button {
+            @include u.text-style(uppercase, 0.8rem);
+            color: v.$black;
+            @include u.transition(color, 0.3s, ease);
+
+            &:hover {
+                color: v.$dark-gray;
+            }
+        }
+
+        @include c.mobile {
+            @include u.padding_all(2.5rem);
+        }
+    }
+}
+
+.active {
+    opacity: 1;
+    position: relative;
+    @include u.transition(opacity, 1s, ease-in);
+    pointer-events: auto;
+
+    @include u.no-animation {
+        transition: none;
+    }
+
+    .hero__content,
+    .hero__image {
+        transform: translateX(0);
+        @include u.transition(all, 1s, ease-in);
+
+        @include u.no-animation {
+            transition: none;
+        }
+
+        @include c.mobile {
+            @include u.transition(opacity, 1s, ease-in);
+
+            @include u.no-animation {
+                transition: none;
+            }
+        }
+    }
+}
+```
+
+I learned how to add tying animation to a text:
+
+```scss
+.footer__content {
+    @include u.padding_all(3rem);
+    @include c.display-flex($justify: center, $direction: column);
+
+    h2 {
+        @include u.text-style(uppercase, 0.5rem);
+        overflow: hidden;
+        border-right: .15em solid v.$very-dark-gray;
+        white-space: nowrap;
+        display: inline-block;
+        margin: 0 auto;
+        animation: typing 15s steps(20, end) infinite, blink-caret .75s step-end infinite;
+
+        @include u.no-animation {
+            animation: none;
+        }
+    }
+
+    p {
+        @include u.padding_y(1rem);
+    }
+
+    @include c.mobile {
+        @include u.padding_all(1rem);
+    }
+}
+
+/* The typing effect */
+@keyframes typing {
+
+    from,
+    to {
+        max-width: 0
+    }
+
+    50% {
+        max-width: 100%
+    }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+
+    from,
+    to {
+        border-color: transparent
+    }
+
+    50% {
+        border-color: v.$very-dark-gray;
+    }
+}
+```
 
 ### Continued development
 
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
-
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
+I want to continue learning & practice different CSS methodologies using SCSS and animations.
 
 ### Useful resources
 
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
-
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
+- [CSS letter-spacing Property](https://www.w3schools.com/cssref/pr_text_letter-spacing.php) - This helped me with learning about `letter-spacing` property which was useful in styling the button & footer heading.
+- [Hover effect : expand bottom border](https://stackoverflow.com/a/28623513) - This helped me in adding hover effect to the nav items with transitions.
+- [Typewriter Effect](https://css-tricks.com/snippets/css/typewriter-effect/) - This helped me in animating my footer with some infinite animations
+- [CSS Text Animations: 40 Creative Examples to Try](https://prismic.io/blog/css-text-animations) - This was an amzing article on different types of text effects we can create using CSS.
+- [Typing effect after button press](https://stackoverflow.com/questions/58425514/typing-effect-after-button-press) - This was also a good example that I wish to try in my mext project.
+- [Sliding div](https://jsfiddle.net/qjwqL236/1/) - Good reference for adding sliding effect to a block
 
 ## Author
 
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
-
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
-
-## Acknowledgments
-
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
-
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
+- Frontend Mentor - [@snigdha-sukun](https://www.frontendmentor.io/profile/snigdha-sukun)

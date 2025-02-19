@@ -3,27 +3,11 @@
 @use 'utilities' as u;
 
 nav {
-    @include c.mobile {
-        position: fixed;
-        width: 100%;
-        left: 0;
-        top: 0;
-        z-index: 10;
-        background-color: v.$white;
-        color: v.$black;
-        padding-top: 60px;
-        @include u.padding_all(1rem);
-        transform: translateY(-100%);
-        opacity: 0;
-        visibility: hidden;
-        @include u.transition(all, 0.5s, ease-in-out);
-    }
+    @include u.mobile-nav;
 
     &.active {
+        @include u.position_fixed(1, visible);
         transform: translateY(0);
-        opacity: 1;
-        visibility: visible;
-        position: fixed;
     }
 }
 
@@ -36,7 +20,7 @@ nav {
 }
 
 .header__logo {
-    @include u.padding_right(2rem);
+    padding-right: 2rem;
 }
 
 .section__nav {
@@ -44,12 +28,10 @@ nav {
     @include u.padding_all(3rem);
     @include u.position_absolute;
     width: 100%;
-    top: 78.8%;
-    right: 38%;
+    @include u.top_right(78.8%, 38%);
 
     @include c.mobile {
-        top: 33.5%;
-        right: -10%;
+        @include u.top_right(33.5%, -10%);
     }
 
     button {
